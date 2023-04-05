@@ -1,0 +1,56 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "elxa3df-NewPayRoll-Dev002"
+		},
+		"ls_AzureKeyVault_dev_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://elxkv-npayroll-dev002.vault.azure.net/"
+		},
+		"ls_azureblobstorage_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "dev-sa-secret"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "elxa3df-NewPayRoll-Dev002_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ls_AzureKeyVault_dev_properties_typeProperties_baseUrl": {
+						"value": "[parameters('ls_AzureKeyVault_dev_properties_typeProperties_baseUrl')]"
+					},
+					"ls_azureblobstorage_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('ls_azureblobstorage_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
