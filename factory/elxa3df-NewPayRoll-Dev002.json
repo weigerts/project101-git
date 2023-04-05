@@ -1,0 +1,9 @@
+{
+	"name": "elxa3df-NewPayRoll-Dev002",
+	"location": "brazilsouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "64a01195-3990-460d-b769-44d1c671b17b",
+		"tenantId": "d2007bef-127d-4591-97ac-10d72fe28031"
+	}
+}
