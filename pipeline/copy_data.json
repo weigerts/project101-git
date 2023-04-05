@@ -5,7 +5,14 @@
 			{
 				"name": "Copy from input to output",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "check if the input file exists",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -59,6 +66,20 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "check if the input file exists",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_input",
+						"type": "DatasetReference"
+					},
+					"timeout": "0.12:00:00",
+					"sleep": 10
+				}
 			}
 		],
 		"annotations": [],
